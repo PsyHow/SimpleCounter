@@ -59,7 +59,7 @@ export const SettingsCounter = (props: SettingsCounterPropsType) => {
         }
     }
 
-    const dis = props.valueMin >= props.valueMax || props.valueMax <= props.valueMin
+    const dis = props.valueMin >= props.valueMax
 
     return (
         <div className="settingBox">
