@@ -1,47 +1,53 @@
 import {Button} from "../Button";
 import React from "react";
-import s from './Counter.module.css'
+import styles from './Counter.module.css'
 
 type PropsType = {
+    incNumberHandler: () => void
+    resetInc: () => void
+    dis: boolean
+    error: boolean | string
     counter: number | string
     max: number
-    inCounterValue: () => void
-    setCounterValue: (value: number | string) => void
-    min: number,
-    error: boolean | string
 }
 
-export const Counter = (props:PropsType) => {
+export const Counter = (props: PropsType) => {
 
-    const incNumberHandler = () => {
-        if ((typeof props.counter) !== 'string')
-            props.inCounterValue()
-    }
-    const resetInc = () => {
-        if ((typeof props.counter) !== 'string')
-            props.setCounterValue(props.min)
-    }
+    const {
+        incNumberHandler,
+        resetInc,
+        dis,
+        error,
+        counter,
+        max,
+    } = props
 
-    const dis = !!props.error || props.counter === props.max || (typeof (props.counter) === 'string')
+    const typeString = 'string'
 
     return (
-        <div className={s.counterBox}>
-            <div className={s.counter}>
+        <div className={styles.counterBox}>
+            <div className={styles.counter}>
                 <div>
-                    {props.error ? <div className={s.ErrorH}>{props.error}</div>
-                        : <div className={props.counter >= props.max ? s.Er : s.h}>{props.counter}</div>}
+
+                    {
+                        error ? <div className={styles.ErrorH}>{error}</div>
+                            : <div className={counter >= max ? styles.Er : styles.h}>{counter}</div>
+                    }
+
                 </div>
             </div>
-            <div className={s.counterButton}>
+
+            <div className={styles.counterButton}>
                 <Button title={"Inc"}
-                        className={s.cButton}
+                        className={styles.cButton}
                         onClick={incNumberHandler}
                         disabled={dis}/>
                 <Button title={"RESET"}
-                        className={s.cButton}
+                        className={styles.cButton}
                         onClick={resetInc}
-                        disabled={!!props.error || (typeof (props.counter) === 'string')}/>
+                        disabled={!!error || (typeof (counter) === typeString)}/>
             </div>
+
         </div>
     )
 }

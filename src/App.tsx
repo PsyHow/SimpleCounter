@@ -1,6 +1,6 @@
 import React from 'react';
-import {SettingsCounterContainer} from "./Components/CounterSettings/SettingsCounterContainer";
-import {CounterContainer} from "./Components/Counter/CounterContainer";
+import SettingsCounterContainer from "./Components/CounterSettings/SettingsCounterContainer";
+import CounterContainer from "./Components/Counter/CounterContainer";
 import s from './App.module.css'
 
 function App() {

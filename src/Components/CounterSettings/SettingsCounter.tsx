@@ -1,86 +1,47 @@
 import {Input} from "../Input";
 import {Button} from "../Button";
-import React, {ChangeEvent, useEffect} from "react";
-import s from './SettingsCounter.module.css'
+import React, {ChangeEvent} from "react";
+import styles from './SettingsCounter.module.css'
 
 type PropsType = {
-    setValueMin: (value: number) => void
-    setValueMax: (value: number) => void
-    setError: (value: string | boolean) => void
-    setCounterValue: (value: number | string) =>void
-    changeValueMax: (value:number)=>void
-    changeValueMin: (value:number)=>void
-    min: number,
-    max : number,
+    setValues: () => void
+    onChangeMin: (e: ChangeEvent<HTMLInputElement>) => void
+    onChangeMax: (e: ChangeEvent<HTMLInputElement>) => void
+    disableButton: boolean
     error: boolean | string
+    min: number
+    max: number
 }
 
-export const SettingsCounter = (props:PropsType) => {
+export const SettingsCounter = (props: PropsType) => {
 
-    useEffect(() => {
-        let valueAsString = localStorage.getItem('minValue')
-        if (valueAsString) {
-            let min = JSON.parse(valueAsString)
-            props.setValueMin(min)
-        }
-    }, [])
-
-    useEffect(() => {
-        let valueAsString = localStorage.getItem('maxValue')
-        if (valueAsString) {
-            let max = JSON.parse(valueAsString)
-            props.setValueMax(max)
-        }
-    }, [])
-
-    const setValues = () => {
-        localStorage.setItem('minValue', JSON.stringify(props.min))
-        localStorage.setItem('maxValue', JSON.stringify(props.max))
-        props.setCounterValue(props.min)
-    }
-
-    const onChangeMin = (e: ChangeEvent<HTMLInputElement>) => {
-        let min = e.target.value
-        let minValue = Number(min)
-        props.changeValueMin(minValue)
-        props.setCounterValue('Set Value')
-        if (minValue >= props.max) {
-            props.setError('Incorrect Value')
-        } else {
-            props.setError(false)
-        }
-    }
-    const onChangeMax = (e: ChangeEvent<HTMLInputElement>) => {
-        let max = e.target.value
-        let maxValue = Number(max)
-        props.changeValueMax(maxValue)
-        props.setCounterValue('Set Value')
-        if (maxValue <= props.min) {
-            props.setError('Incorrect Value')
-        } else {
-            props.setError(false)
-        }
-    }
-
-    const disableButton = props.min >= props.max
+    const {
+        setValues,
+        onChangeMin,
+        onChangeMax,
+        disableButton,
+        error,
+        max,
+        min,
+    } = props
 
     return (
-        <div className={s.settingsBox}>
-            <div className={s.inputBox}>
+        <div className={styles.settingsBox}>
+            <div className={styles.inputBox}>
                 MinValue
-                <Input className={props.error ? s.inputError : s.input}
-                       value={props.min}
+                <Input className={error ? styles.inputError : styles.input}
+                       value={min}
                        onChange={onChangeMin}/>
             </div>
-            <div className={s.inputBox}>
+            <div className={styles.inputBox}>
                 MaxValue
-                <Input className={props.error ? s.inputError : s.input}
-                       value={props.max}
+                <Input className={error ? styles.inputError : styles.input}
+                       value={max}
                        onChange={onChangeMax}/>
             </div>
             <div>
                 <Button title={'set'}
-                        className={s.button}
+                        className={styles.button}
                         disabled={disableButton}
                         onClick={setValues}/>
             </div>
