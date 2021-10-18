@@ -1,0 +1,53 @@
+.counterBox {
+    display: grid;
+    justify-content: center;
+    width: 350px;
+    height: 290px;
+    background-color: #606060;
+    border-radius: 10px;
+    border: 2px solid #99004C;
+}
+
+.counter {
+    margin-top: 20px;
+    background-color: #404040;
+    height: 150px;
+    width: 260px;
+    border-radius: 10px;
+    justify-content: center;
+    border: 2px solid black
+}
+
+.ErrorH {
+    margin-top: 20px;
+    text-align: center;
+    font-size: 40px;
+    color: red
+}
+
+.Er {
+    margin-top: 50px;
+    text-align: center;
+    font-size: 40px;
+    color: red;
+}
+
+.h {
+    margin-top: 50px;
+    text-align: center;
+    font-size: 40px;
+}
+
+.counterButton {
+    display: flex;
+    justify-content: space-between;
+}
+
+.cButton {
+    width: 90px;
+    height: 50px;
+    border-radius: 10px;
+    background-color: #606060;
+    border: 2px solid #99004C;
+    font-size: 20px;
+}

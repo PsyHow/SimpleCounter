@@ -1,6 +1,8 @@
-.input{
-    text-align: center;
-}
-.error {
-    color:red
+.wrapper {
+    padding-top: 150px;
+    padding-left: 10%;
+    display: grid;
+    grid-template-columns: 500px 500px;
+    background-color: #404040;
+    height: 2000px;
 }
