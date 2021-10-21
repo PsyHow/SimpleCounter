@@ -3,7 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/Counter.iml" filepath="$PROJECT_DIR$/.idea/Counter.iml" />
-      <module fileurl="file://$PROJECT_DIR$/../Ignat-HW/hw/.idea/hw.iml" filepath="$PROJECT_DIR$/../Ignat-HW/hw/.idea/hw.iml" />
     </modules>
   </component>
 </project>

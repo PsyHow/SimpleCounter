@@ -2,28 +2,28 @@ import {Input} from "../Input";
 import {Button} from "../Button";
 import React, {ChangeEvent} from "react";
 import styles from './SettingsCounter.module.css'
+import {useSelector} from "react-redux";
+import {AppStateType} from "../../BLL/redux";
 
 type PropsType = {
     setValues: () => void
     onChangeMin: (e: ChangeEvent<HTMLInputElement>) => void
     onChangeMax: (e: ChangeEvent<HTMLInputElement>) => void
     disableButton: boolean
-    error: boolean | string
-    min: number
-    max: number
 }
 
 export const SettingsCounter = (props: PropsType) => {
 
     const {
-        setValues,
         onChangeMin,
         onChangeMax,
         disableButton,
-        error,
-        max,
-        min,
+        setValues,
     } = props
+
+    const min = useSelector<AppStateType, number>(state => state.counter.valueMin)
+    const max = useSelector<AppStateType, number>(state => state.counter.valueMax)
+    const error = useSelector<AppStateType, boolean | string>(state => state.counter.error)
 
     return (
         <div className={styles.settingsBox}>

@@ -1,28 +1,25 @@
 import {Button} from "../Button";
 import React from "react";
 import styles from './Counter.module.css'
+import {useSelector} from "react-redux";
+import {AppStateType} from "../../BLL/redux";
 
 type PropsType = {
     incNumberHandler: () => void
     resetInc: () => void
     dis: boolean
-    error: boolean | string
-    counter: number | string
-    max: number
 }
 
 export const Counter = (props: PropsType) => {
 
-    const {
-        incNumberHandler,
-        resetInc,
-        dis,
-        error,
-        counter,
-        max,
-    } = props
+    const {incNumberHandler, resetInc, dis} = props
+
+    const max = useSelector<AppStateType, number>(state => state.counter.valueMax)
+    const error = useSelector<AppStateType, boolean | string>(state => state.counter.error)
+    const counter = useSelector<AppStateType, number | string>(state => state.counter.counter)
 
     const typeString = 'string'
+
 
     return (
         <div className={styles.counterBox}>

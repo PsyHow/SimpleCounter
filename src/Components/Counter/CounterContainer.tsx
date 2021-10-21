@@ -1,31 +1,27 @@
-import {connect, ConnectedProps} from "react-redux";
-import {AppStateType} from "../../BLL/redux";
+import {useDispatch, useSelector} from "react-redux";
 import {incCounterValueAC, setCounterValueAC,} from "../../BLL/actionCreators";
-import {Dispatch} from "redux";
 import {Counter} from "./Counter";
 import React from "react";
+import {AppStateType} from "../../BLL/redux";
 
-const CounterContainer: React.FC<CProps> = props => {
+export const CounterContainer = () => {
 
-    const {
-        counter,
-        max,
-        inCounterValue,
-        setCounterValue,
-        min,
-        error,
-    } = props
+    const dispatch = useDispatch()
+    const counter = useSelector<AppStateType, number | string>(state => state.counter.counter)
+    const min = useSelector<AppStateType, number>(state => state.counter.valueMin)
+    const error = useSelector<AppStateType, boolean | string>(state => state.counter.error)
+    const max = useSelector<AppStateType, number>(state => state.counter.valueMax)
 
     const typeString = 'string'
 
     const incNumberHandler = () => {
         if ((typeof counter) !== typeString)
-            inCounterValue()
+            dispatch(incCounterValueAC())
     }
 
     const resetInc = () => {
         if ((typeof counter) !== typeString)
-            setCounterValue(min)
+            dispatch(setCounterValueAC(min))
     }
 
     const dis = !!error || counter === max || (typeof (counter) === typeString)
@@ -34,49 +30,9 @@ const CounterContainer: React.FC<CProps> = props => {
     return <>
         <Counter incNumberHandler={incNumberHandler}
                  resetInc={resetInc}
-                 dis={dis}
-                 error={error}
-                 counter={counter}
-                 max={max}/>
+                 dis={dis}/>
     </>
 }
 
-type MapDispatchToPropsType = {
-    inCounterValue: () => void
-    setCounterValue: (value: number | string) => void
-}
-
-type MapStateToPropsType = {
-    counter: number | string
-    max: number
-    min: number,
-    error: boolean | string
-}
-
-let MapStateToProps = (state: AppStateType): MapStateToPropsType => {
-    return {
-        counter: state.counter.counter,
-        max: state.counter.valueMax,
-        min: state.counter.valueMin,
-        error: state.counter.error
-    }
-}
-
-let MapDispatchToProps = (dispatch: Dispatch): MapDispatchToPropsType => {
-    return {
-        inCounterValue: () => {
-            dispatch(incCounterValueAC())
-        },
-        setCounterValue: (value: number | string) => {
-            dispatch(setCounterValueAC(value))
-        },
-    }
-}
-
-
-type CProps = ConnectedProps<typeof connector>
-const connector = connect(MapStateToProps, MapDispatchToProps)
-
-export default connector(CounterContainer);
 
 
