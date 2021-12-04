@@ -1,39 +1,40 @@
-import {SettingsCounter} from "./SettingsCounter";
-import React, {ChangeEvent, useEffect} from "react";
-import {useDispatch, useSelector} from "react-redux";
+import { SettingsCounter } from "./SettingsCounter";
+import React, { ChangeEvent, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import {
     changeValueMaxAC,
     changeValueMinAC,
     setCounterValueAC,
     setErrorAC,
     setValueMaxAC,
-    setValueMinAC
+    setValueMinAC,
 } from "../../BLL/actionCreators";
-import {AppStateType} from "../../BLL/redux";
+import { AppStateType } from "../../BLL/redux";
 
 
 export const SettingsCounterContainer = () => {
 
     const dispatch = useDispatch()
     const min = useSelector<AppStateType, number>(state => state.counter.valueMin)
+
     const max = useSelector<AppStateType, number>(state => state.counter.valueMax)
 
 
     useEffect(() => {
         const valueAsString = localStorage.getItem('minValue')
-        if (valueAsString) {
+        if(valueAsString) {
             const min = JSON.parse(valueAsString)
             dispatch(setValueMinAC(min))
         }
-    }, [])
+    }, [dispatch])
 
     useEffect(() => {
         const valueAsString = localStorage.getItem('maxValue')
-        if (valueAsString) {
+        if(valueAsString) {
             const max = JSON.parse(valueAsString)
             dispatch(setValueMaxAC(max))
         }
-    }, [])
+    }, [dispatch])
 
     const setValues = () => {
         localStorage.setItem('minValue', JSON.stringify(min))
@@ -46,9 +47,10 @@ export const SettingsCounterContainer = () => {
         const minValue = Number(min)
         dispatch(changeValueMinAC(minValue))
         dispatch(setCounterValueAC('Set Value'))
-        if (minValue >= max) {
+        if(minValue >= max) {
             dispatch(setErrorAC('Incorrect Value'))
-        } else {
+        }
+        else {
             dispatch(setErrorAC(false))
         }
     }
@@ -57,9 +59,10 @@ export const SettingsCounterContainer = () => {
         const maxValue = Number(max)
         dispatch(changeValueMaxAC(maxValue))
         dispatch(setCounterValueAC('Set Value'))
-        if (maxValue <= min) {
+        if(maxValue <= min) {
             dispatch(setErrorAC('Incorrect Value'))
-        } else {
+        }
+        else {
             dispatch(setErrorAC(false))
         }
     }
@@ -67,10 +70,10 @@ export const SettingsCounterContainer = () => {
     const disableButton = min >= max
 
     return <>
-        <SettingsCounter setValues={setValues}
-                         onChangeMin={onChangeMin}
-                         onChangeMax={onChangeMax}
-                         disableButton={disableButton}/>
+        <SettingsCounter setValues={ setValues }
+                         onChangeMin={ onChangeMin }
+                         onChangeMax={ onChangeMax }
+                         disableButton={ disableButton }/>
     </>
 }
 
